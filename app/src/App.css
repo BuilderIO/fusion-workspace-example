@@ -8,3 +8,14 @@
 #root {
   width: 100%;
 }
+
+.user-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.user-name {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}

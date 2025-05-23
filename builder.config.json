@@ -1,16 +1,8 @@
 {
   "command": "cd app && npm run dev",
+  "authenticateProxy": false,
   "serverUrl": "http://localhost:3000",
-  "workspace": {
-    "folders": [
-      {
-        "path": "./app"
-      },
-      {
-        "path": "./storybook"
-      }
-    ]
-  },
+  "commitMode": "commits",
   "allowedCommands": [
     "npm *",
     "pnpm *",
@@ -23,5 +15,15 @@
     "find *",
     "ls *",
     "curl *"
-  ]
+  ],
+  "workspace": {
+    "folders": [
+      {
+        "path": "./app"
+      },
+      {
+        "path": "./storybook"
+      }
+    ]
+  }
 }
