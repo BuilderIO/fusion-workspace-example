@@ -1,0 +1,27 @@
+{
+  "command": "cd app && npm run dev",
+  "serverUrl": "http://localhost:3000",
+  "workspace": {
+    "folders": [
+      {
+        "path": "./app"
+      },
+      {
+        "path": "./storybook"
+      }
+    ]
+  },
+  "allowedCommands": [
+    "npm *",
+    "pnpm *",
+    "yarn *",
+    "git diff *",
+    "git log *",
+    "git status *",
+    "echo *",
+    "cd *",
+    "find *",
+    "ls *",
+    "curl *"
+  ]
+}
