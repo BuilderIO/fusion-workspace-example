@@ -1,0 +1,86 @@
+import Example from "../../components/example";
+import Layout from "../../components/layout";
+import { DocLink } from "../../components/markdown-elements";
+import Exports from "../../components/exports";
+
+import { StatefulPhoneInput, COUNTRIES } from "baseui/phone-input/index";
+import * as PhoneInputExports from "baseui/phone-input/index";
+import { Table } from "baseui/table";
+import { Block } from "baseui/block";
+
+import PhoneInputBasic from "examples/phone-input/basic.tsx";
+import PhoneInputUncontrolled from "examples/phone-input/uncontrolled.tsx";
+import PhoneInputLocalized from "examples/phone-input/localized.tsx";
+import FlagOverrides from "examples/phone-input/flag-overrides.tsx";
+import WithNestedOverrides from "examples/phone-input/nested-overrides.tsx";
+
+import Yard from "../../components/yard/index";
+import phoneInputYardConfig from "../../components/yard/config/phone-input";
+
+export default Layout;
+
+# Phone Input
+
+<Yard placeholderHeight={48} {...phoneInputYardConfig} />
+
+The Phone Input is used to collect phone numbers with international dial codes.
+It contains a dropdown which allows the user to choose from a list of countries and dial codes.
+
+## Examples
+
+<Example title="Basic usage" path="phone-input/basic.tsx">
+  <PhoneInputBasic />
+</Example>
+
+<Example title="Localized country names" path="phone-input/localized.tsx">
+  <PhoneInputLocalized />
+</Example>
+
+<Example
+  title="With flag overrides and virtualized dropdown list"
+  path="phone-input/flag-overrides.tsx"
+>
+  <FlagOverrides />
+</Example>
+
+<Example title="With nested overrides" path="phone-input/nested-overrides.tsx">
+  <WithNestedOverrides />
+</Example>
+
+Click [here](/guides/understanding-overrides//#override-nested-components) to learn more about nested overrides.
+
+<Example
+  title="Stateful (uncontrolled) usage"
+  path="phone-input/uncontrolled.tsx"
+>
+  <PhoneInputUncontrolled />
+</Example>
+
+As with many of our components, there is also an [uncontrolled](https://reactjs.org/docs/uncontrolled-components.html) version, `StatefulPhoneInput`, which manages its own state.
+
+## Supported Countries
+
+The following countries are available in the country selector dropdown.
+You can import these as an object `COUNTRIES` from `baseui/phone-input`.
+Note, the country objects are formatted for ease of use with our `Select` component.
+
+```js
+COUNTRIES: {
+  id: string,      // Country ISO
+  label: string,   // Country Name
+  dialCode: string // Country Dial Code
+}
+```
+
+<Block height="400px">
+  <Table
+    columns={["ID", "Label", "Dial Code"]}
+    data={Object.values(COUNTRIES).map((c) => [c.id, c.label, c.dialCode])}
+  />
+</Block>
+
+<Exports
+  component={PhoneInputExports}
+  title="Phone Input exports"
+  path="baseui/phone-input"
+/>

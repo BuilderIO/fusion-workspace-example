@@ -1,0 +1,44 @@
+import Example from "../../components/example";
+import Layout from "../../components/layout";
+import Exports from "../../components/exports";
+
+import Basic from "examples/icon/basic.tsx";
+import List from "examples/icon/list.tsx";
+import Button from "examples/icon/button.tsx";
+
+import ArrowRight from "baseui/icon/arrow-right";
+import * as IconExports from "baseui/icon";
+
+import Yard from "../../components/yard/index";
+import iconConfig from "../../components/yard/config/icon";
+
+export default Layout;
+
+# Icon
+
+<Yard placeholderHeight={64} {...iconConfig} />
+
+Visually indicate an action or option.
+
+_If you are an Uber employee, you can access the full list of icons [here](http://t.uber.com/icons)._
+
+## When to use
+
+- Save screen real-estate in a tight user interface.
+- Guide users to where they need to go.
+
+## Examples
+
+<Example title="Icon basic usage" path="icon/basic.tsx">
+  <Basic />
+</Example>
+
+<Example title="Available icons" path="icon/list.tsx">
+  <List />
+</Example>
+
+<Example title="Icon in a button" path="icon/button.tsx">
+  <Button />
+</Example>
+
+<Exports component={IconExports} title="Icon exports" path="baseui/icon" />

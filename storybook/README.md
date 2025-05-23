@@ -1,19 +1,65 @@
-# Grafana UI components library
+**Uber is hiring in Amsterdam. Do you want to work on Base Web and other things? <a href="https://www.uber.com/global/en/careers/list/130852/">Please apply!</a>**
 
-@grafana/ui is a collection of components used by [Grafana](https://github.com/grafana/grafana)
+<h1>Base Web React Components</h1>
 
-Our goal is to deliver Grafana's common UI elements for plugins developers and contributors.
+- [Documentation](https://baseweb.design)
+- [Component catalog](https://baseweb.design/ladle)
+- [Stackblitz playground](https://baseweb.design/new)
 
-Browse the [Storybook catalog of the components](http://developers.grafana.com/).
+⚠️ **Maintenance status**. We are limiting our engagement with this repository while still mirroring our internal development. For more details, please check [Open Source Engagement and Future](https://baseweb.design/blog/open-source-engagement/). If you are an Uber developer and looking to open an issue, use this [link](https://t.uber.com/ui-platform-bug-2) or [contribute](https://p.uber.com/base-code).
 
-See [package source](https://github.com/grafana/grafana/tree/main/packages/grafana-ui) for more details.
+**Base** is a design system comprised of modern, responsive, living components. Base Web is the React implementation of Base.
 
-## Installation
+<p align="center">
+  <a href="https://baseweb.design">
+    <img width="500px" src="https://i.imgur.com/UaRZdTq.png">
+  </a>
+</p>
 
-`yarn add @grafana/ui`
+## Usage
 
-`npm install @grafana/ui`
+On npm, you can find Base Web as `baseui`.
 
-## Development
+Add `baseui` and its peer dependencies to your project:
 
-For development purposes we suggest using `yarn link` that will create symlink to @grafana/ui lib. To do so navigate to `packages/grafana-ui` and run `YARN_IGNORE_PATH=1 yarn link`. Then, navigate to your project and run `yarn link "@grafana/ui"` to use the linked version of the lib. To unlink follow the same procedure, but use `yarn unlink` instead.
+```bash
+# using pnpm
+pnpm add baseui@next styletron-react styletron-engine-monolithic
+
+# using npm
+npm install baseui@next styletron-react styletron-engine-monolithic
+```
+
+```javascript
+import { Client as Styletron } from "styletron-engine-monolithic";
+import { Provider as StyletronProvider } from "styletron-react";
+import { LightTheme, BaseProvider, styled } from "baseui";
+import { StatefulInput } from "baseui/input";
+
+const engine = new Styletron();
+
+const Centered = styled("div", {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%",
+});
+
+export default function Hello() {
+  return (
+    <StyletronProvider value={engine}>
+      <BaseProvider theme={LightTheme}>
+        <Centered>
+          <StatefulInput />
+        </Centered>
+      </BaseProvider>
+    </StyletronProvider>
+  );
+}
+```
+
+Both Base Web and Styletron come with [TypeScript](https://www.typescriptlang.org/index.html).
+
+## Docs
+
+To read the documentation, please visit [baseweb.design](https://baseweb.design). To preview more component examples, please visit [baseweb.design/ladle](https://baseweb.design/ladle).

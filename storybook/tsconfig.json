@@ -1,22 +1,26 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "baseUrl": "./",
-    "declarationDir": "./compiled",
-    "emitDeclarationOnly": true,
-    "isolatedModules": true,
-    "allowJs": true,
-    "rootDirs": ["."]
-  },
-  "exclude": ["dist/**/*"],
-  "extends": "@grafana/tsconfig",
-  "include": ["../../public/test/setupTests.ts", "../../public/app/types/*.d.ts", "src/**/*.ts*"],
-  // override for storybook which uses ts-node to compile main.ts / preview.ts files.
-  "ts-node": {
-    "compilerOptions": {
-      "isolatedModules": false,
-      "resolveJsonModule": true,
-      "module": "commonjs"
+    "target": "esnext", // Specify ECMAScript target version
+    "module": "NodeNext", // Specify module code generation
+    "moduleResolution": "NodeNext", // Specify module resolution strategy
+    "lib": ["dom", "esnext"], // Specify library files to be included in the compilation
+    "jsx": "react", // Specify JSX code generation
+    "declaration": false, // Generates corresponding '.d.ts' file
+    "sourceMap": false, // Generates corresponding '.map' file
+    "strict": false, // Enable all strict type-checking options
+    "noEmit": true,
+    "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "isolatedModules": true, // Ensure each file can be safely transpiled without relying on other imports
+    "paths": {
+      "baseui": ["./src"],
+      "baseui/*": ["./src/*"]
     }
-  }
+  },
+  "include": [
+    "./documentation-site/**/*" // Include all files in the src directory
+  ],
+  "exclude": [
+    "node_modules" // Exclude the node_modules directory
+  ]
 }

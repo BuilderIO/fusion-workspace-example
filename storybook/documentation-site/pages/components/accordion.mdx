@@ -1,0 +1,81 @@
+import Example from "../../components/example";
+import Exports from "../../components/exports";
+import Layout from "../../components/layout";
+import SEO from "../../components/meta-seo";
+import BasicAccordion from "examples/accordion/basic.tsx";
+import StatefulPanelExample from "examples/accordion/stateful-panel.tsx";
+import AccordionSEO from "examples/accordion/renderpanelcontent.tsx";
+import CustomPanel from "examples/accordion/custom.tsx";
+import StatelessAccordion from "examples/accordion/stateless.tsx";
+import CustomTitle from "examples/accordion/title.tsx";
+
+import * as AccordionExports from "baseui/accordion";
+import * as PanelExports from "baseui/accordion/panel";
+import { Accordion, Panel } from "baseui/accordion";
+
+import Yard from "../../components/yard/index";
+import accordionYardConfig from "../../components/yard/config/accordion";
+
+<SEO
+  description="Accordions display a list of high-level options that can expand/contract to reveal more detailed information."
+  keywords="accordion, react accordion, react expansion panel, react collapse"
+/>
+
+export default Layout;
+
+# Accordion
+
+<Yard placeholderHeight={180} {...accordionYardConfig} />
+
+Accordions display a list of high-level options that can expand/contract to reveal more detailed information.
+
+## Accessibility
+
+- `tab`, `shift + tab` - switch between panels.
+- `arrow up`, `arrow down`, `home`, `end` - switch between panels (won't shift focus outside of
+  accordion if you attempt to move beyond the first or last panel).
+- `space` or `enter` - when focus is on the accordion panel header it will toggle (expand or
+  collapse) the currently focused panel.
+
+## Examples
+
+<Example title="Custom Accordion" path="accordion/custom.tsx">
+  <CustomPanel />
+</Example>
+
+<Example title="Accordion basic usage" path="accordion/basic.tsx">
+  <BasicAccordion />
+</Example>
+
+<Example title="Accordion custom title" path="accordion/title.tsx">
+  <CustomTitle />
+</Example>
+
+<Example title="Accordion SEO Friendly" path="accordion/renderpanelcontent.tsx">
+  <AccordionSEO />
+</Example>
+
+<Example
+  title="Using a stateful panel component on it's own"
+  path="accordion/stateful-panel.tsx"
+>
+  <StatefulPanelExample />
+</Example>
+
+<Example title="Stateless Accordion" path="accordion/stateless.tsx">
+  <StatelessAccordion />
+</Example>
+
+If you want to control the `expanded` state of the accordion panels yourself, you can use the stateless version of our accordion: `StatelessAccordion`. You can pass a list of React keys to `expanded`, which corresponds to the keys of the `Panels` that you want to be expanded.
+
+The `onChange` handler is called when one of the `Panels` would ordinarily be opened. It passes both the `key` of the `Panel` that caused the handler to fire as well as an updated `expanded` list. You can choose to use the new `expanded` list or `key` however you like to update your state. Note, by default the new `expanded` list will assume only one panel can be open at a time, but if you pass `accordion={false}` the `expanded` list will assume multiple can be open simultaneously.
+
+The `StatelessAccordion` gives you the flexibility to control the accordion as you like while still offering some convenience to cover the normal use cases.
+
+**Note:** the `Panel` has the same overrides as `Accordion`, with the exception of the `Root` subcomponent.
+
+<Exports
+  component={AccordionExports}
+  title="Accordion exports"
+  path="baseui/accordion"
+/>

@@ -1,0 +1,74 @@
+import Example from "../../components/example";
+import Layout from "../../components/layout";
+import Exports from "../../components/exports";
+
+import Basic from "examples/notification/basic.tsx";
+import Kinds from "examples/notification/kinds.tsx";
+import Closeable from "examples/notification/closeable.tsx";
+import Customization from "examples/notification/overrides.tsx";
+import CustomDismiss from "examples/notification/custom-dismiss.tsx";
+import FullWidth from "examples/notification/full-width.tsx";
+
+import { Notification } from "baseui/notification";
+import * as NotificationExports from "baseui/notification";
+import Yard from "../../components/yard/index";
+import notificationYardConfig from "../../components/yard/config/notification";
+
+export default Layout;
+
+# Notification
+
+<Yard placeholderHeight={68} {...notificationYardConfig} />
+
+Notifications provide important information inline with the content body within a view. These
+notifications do not self-dismiss and have the option to include a close “X”. Notifications
+come out of the box with 0 margin. Margin should be added using overrides based on the context
+they'll be used in.
+
+## When to use
+
+- When another user of the app direct messages the current user.
+- When the app requires immediate action by the current user.
+- When the app must communicate actionable information from outside the current context.
+
+## Examples
+
+<Example title="Notification Basic Usage" path="notification/basic.tsx">
+  <Basic />
+</Example>
+
+<Example
+  title="Notification with all Available Kinds"
+  path="notification/kinds.tsx"
+>
+  <Kinds />
+</Example>
+
+<Example
+  title="Notification Closeable example"
+  path="notification/closeable.tsx"
+>
+  <Closeable />
+</Example>
+
+<Example title="Notification in Full width" path="notification/full-width.tsx">
+  <FullWidth />
+</Example>
+
+<Example title="Notification with Overrides" path="notification/overrides.tsx">
+  <Customization />
+</Example>
+
+<Example
+  title="Notification with Custom Dismiss"
+  path="notification/custom-dismiss.tsx"
+>
+  <CustomDismiss />
+</Example>
+
+<Exports
+  component={NotificationExports}
+  title="Notification exports"
+  path="baseui/notification"
+  cheatsheet={false}
+/>

@@ -1,0 +1,58 @@
+import Example from "../../components/example";
+import Layout from "../../components/layout";
+import Exports from "../../components/exports";
+
+import Basic from "examples/radio/basic.tsx";
+import Stateful from "examples/radio/stateful.tsx";
+import HorizontalAlign from "examples/radio/horizontal-align.tsx";
+import Error from "examples/radio/error.tsx";
+import Customization from "examples/radio/overrides.tsx";
+import Disabled from "examples/radio/disabled.tsx";
+
+import { Radio, StatefulRadioGroup } from "baseui/radio";
+import * as RadioExports from "baseui/radio";
+
+import Yard from "../../components/yard/index";
+import radioYardConfig from "../../components/yard/config/radio";
+
+export default Layout;
+
+# Radio
+
+<Yard placeholderHeight={122} {...radioYardConfig} />
+
+Radios are used when only one choice may be selected in a series of options.
+
+## When to use
+
+- When the user should see all available options.
+
+## Examples
+
+<Example title="Basic usage" path="radio/basic.tsx">
+  <Basic />
+</Example>
+
+<Example title="Disabled radios" path="radio/disabled.tsx">
+  <Disabled />
+</Example>
+
+<Example title="Horizontal alignment" path="radio/horizontal-align.tsx">
+  <HorizontalAlign />
+</Example>
+
+<Example title="Error state" path="radio/error.tsx">
+  <Error />
+</Example>
+
+<Example title="Overrides usage" path="radio/overrides.tsx">
+  <Customization />
+</Example>
+
+<Example title="Stateful (uncontrolled) usage" path="radio/stateful.tsx">
+  <Stateful />
+</Example>
+
+As with many of our components, there is also an [uncontrolled](https://reactjs.org/docs/uncontrolled-components.html) version, `StatefulRadioGroup`, which manages its own state.
+
+<Exports component={RadioExports} title="Radio exports" path="baseui/radio" />

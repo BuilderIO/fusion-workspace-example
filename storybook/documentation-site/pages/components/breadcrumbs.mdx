@@ -1,0 +1,49 @@
+import Example from "../../components/example";
+import Exports from "../../components/exports";
+import Layout from "../../components/layout";
+import SEO from "../../components/meta-seo";
+
+import BasicBreadcrumbs from "examples/breadcrumbs/basic.tsx";
+import PseudoBreadcrumbs from "examples/breadcrumbs/pseudo.tsx";
+
+import { Breadcrumbs } from "baseui/breadcrumbs";
+import * as BreadcrumbsExports from "baseui/breadcrumbs";
+import { StyledLink as Link } from "baseui/link";
+
+import Yard from "../../components/yard/index";
+import breadcrumbsYardConfig from "../../components/yard/config/breadcrumbs";
+
+<SEO
+  description="The Breadcrumbs component is a secondary navigation scheme that reveals the user’s location in an application."
+  keywords="breadcrumbs, react breadcrumbs"
+/>
+
+export default Layout;
+
+# Breadcrumbs
+
+<Yard placeholderHeight={24} {...breadcrumbsYardConfig} />
+
+The Breadcrumbs component is secondary navigation scheme that reveals
+the user’s location in an application.
+
+## Examples
+
+<Example title="Breadcrumbs basic usage" path="breadcrumbs/basic.tsx">
+  <BasicBreadcrumbs />
+</Example>
+
+<Example
+  title="Breadcrumbs with pseudo separators"
+  path="breadcrumbs/pseudo.tsx"
+>
+  <PseudoBreadcrumbs />
+</Example>
+
+This is the recommended approach where SEO/Accessibility is important.
+
+<Exports
+  component={BreadcrumbsExports}
+  title="Breadcrumbs exports"
+  path="baseui/breadcrumbs"
+/>
