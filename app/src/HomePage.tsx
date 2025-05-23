@@ -1,40 +1,62 @@
-import React from "react";
-import { Button, Card, Alert, Text } from "@grafana/ui";
+import { Button } from "baseui/button";
+import { Card, StyledBody, StyledAction } from "baseui/card";
+import { Banner, KIND } from "baseui/banner";
+import { HeadingXXLarge, ParagraphMedium } from "baseui/typography";
 
 function HomePage(): JSX.Element {
   return (
     <div
       style={{
-        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
         padding: "2rem",
-        maxWidth: "600px",
-        margin: "0 auto",
+        textAlign: "center",
       }}
     >
-      <Text element="h1" variant="h1">
-        Hello World!
-      </Text>
-      <Text element="p" variant="body">
-        Welcome to our simple React app with React Router and Grafana UI
-      </Text>
+      <div
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+        }}
+      >
+      <HeadingXXLarge>Hello World!</HeadingXXLarge>
+      <ParagraphMedium>
+        Welcome to our simple React app with React Router and BaseUI
+      </ParagraphMedium>
 
-      <Card style={{ marginTop: "2rem", textAlign: "left" }}>
-        <Card.Heading>Grafana UI Components</Card.Heading>
-        <Card.Description>
-          Here are some example Grafana UI components working in your app:
-        </Card.Description>
-
-        <Card.Actions>
-          <Button variant="primary">Primary Button</Button>
-          <Button variant="secondary">Secondary Button</Button>
-          <Button variant="destructive">Destructive Button</Button>
-        </Card.Actions>
+      <Card
+        overrides={{
+          Root: {
+            style: {
+              marginTop: "2rem",
+              textAlign: "left",
+            },
+          },
+        }}
+        title="BaseUI Components"
+      >
+        <StyledBody>
+          Here are some example BaseUI components working in your app:
+        </StyledBody>
+        <StyledAction>
+          <Button>Primary Button</Button>
+          <Button kind="secondary" overrides={{ Root: { style: { marginLeft: "1rem" } } }}>
+            Secondary Button
+          </Button>
+          <Button kind="tertiary" overrides={{ Root: { style: { marginLeft: "1rem" } } }}>
+            Tertiary Button
+          </Button>
+        </StyledAction>
       </Card>
 
       <div style={{ marginTop: "1rem" }}>
-        <Alert title="Success!" severity="success">
-          Grafana UI has been successfully installed and is working!
-        </Alert>
+        <Banner kind={KIND.positive}>
+          BaseUI has been successfully installed and is working!
+        </Banner>
+      </div>
       </div>
     </div>
   );
