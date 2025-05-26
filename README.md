@@ -4,6 +4,8 @@ This repo demonstrates using Builder Fusion across [multiple repositories](https
 
 The design system is in the [`storybook`](./storybook) folder and the app is in the [`app`](./app) folder. See [`AGENT.md`](./AGENT.md) for additional instructions we give the Fusion agent.
 
+API documentation of an internal Users API is in the [`api`](./api) folder.
+
 See [`fusion.config.json`](./fusion.config.json) for the [configuration of the Fusion workspace](https://www.builder.io/c/docs/projects#using-fusion-config-json).
 
 ## Running Fusion
