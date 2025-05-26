@@ -1,0 +1,463 @@
+openapi: 3.0.0
+info:
+  title: Fake Users API
+  description: A RESTful API for managing user data, built with Cloudflare Workers and D1 database.
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+servers:
+  - url: https://user-api.builder-io.workers.dev/api
+    description: Production server
+
+paths:
+  /users:
+    get:
+      summary: List users
+      description: Returns a paginated list of users with optional search and sorting capabilities
+      operationId: listUsers
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: perPage
+          in: query
+          description: Number of results per page
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 100
+        - name: search
+          in: query
+          description: Search users by first name, last name, email, or city
+          schema:
+            type: string
+        - name: sortBy
+          in: query
+          description: Field to sort results by
+          schema:
+            type: string
+            enum:
+              - name.first
+              - name.last
+              - location.city
+              - location.country
+              - dob.age
+              - registered.date
+            default: name.first
+        - name: span
+          in: query
+          description: Time span view (affects page offset)
+          schema:
+            type: string
+            enum:
+              - week
+              - month
+            default: week
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: Current page number
+                  perPage:
+                    type: integer
+                    description: Number of results per page
+                  total:
+                    type: integer
+                    description: Total number of users
+                  span:
+                    type: string
+                    description: Time span view
+                  effectivePage:
+                    type: integer
+                    description: Effective page after span adjustment
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    post:
+      summary: Create a new user
+      description: Create a new user with the provided information
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  uuid:
+                    type: string
+                    description: Generated UUID for the new user
+                  message:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /users/{id}:
+    get:
+      summary: Get a specific user
+      description: Retrieve a user by UUID, username, or email
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User UUID, username, or email
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    put:
+      summary: Update a user
+      description: Update an existing user's information
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User UUID, username, or email
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        "200":
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    delete:
+      summary: Delete a user
+      description: Delete a user from the system
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User UUID, username, or email
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        login:
+          type: object
+          properties:
+            uuid:
+              type: string
+              format: uuid
+            username:
+              type: string
+            password:
+              type: string
+        name:
+          type: object
+          properties:
+            title:
+              type: string
+            first:
+              type: string
+            last:
+              type: string
+        gender:
+          type: string
+          enum: [male, female]
+        location:
+          type: object
+          properties:
+            street:
+              type: object
+              properties:
+                number:
+                  type: integer
+                name:
+                  type: string
+            city:
+              type: string
+            state:
+              type: string
+            country:
+              type: string
+            postcode:
+              type: string
+            coordinates:
+              type: object
+              properties:
+                latitude:
+                  type: number
+                  format: float
+                longitude:
+                  type: number
+                  format: float
+            timezone:
+              type: object
+              properties:
+                offset:
+                  type: string
+                description:
+                  type: string
+        email:
+          type: string
+          format: email
+        dob:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+            age:
+              type: integer
+        registered:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+            age:
+              type: integer
+        phone:
+          type: string
+        cell:
+          type: string
+        picture:
+          type: object
+          properties:
+            large:
+              type: string
+              format: uri
+            medium:
+              type: string
+              format: uri
+            thumbnail:
+              type: string
+              format: uri
+        nat:
+          type: string
+
+    CreateUserRequest:
+      type: object
+      required:
+        - email
+        - login
+        - name
+      properties:
+        email:
+          type: string
+          format: email
+        login:
+          type: object
+          required:
+            - username
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+        name:
+          type: object
+          required:
+            - first
+            - last
+          properties:
+            title:
+              type: string
+            first:
+              type: string
+            last:
+              type: string
+        gender:
+          type: string
+          enum: [male, female]
+        location:
+          type: object
+          properties:
+            street:
+              type: object
+              properties:
+                number:
+                  type: integer
+                name:
+                  type: string
+            city:
+              type: string
+            state:
+              type: string
+            country:
+              type: string
+            postcode:
+              type: string
+            coordinates:
+              type: object
+              properties:
+                latitude:
+                  type: number
+                  format: float
+                longitude:
+                  type: number
+                  format: float
+            timezone:
+              type: object
+              properties:
+                offset:
+                  type: string
+                description:
+                  type: string
+        dob:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+            age:
+              type: integer
+        phone:
+          type: string
+        cell:
+          type: string
+        picture:
+          type: object
+          properties:
+            large:
+              type: string
+              format: uri
+            medium:
+              type: string
+              format: uri
+            thumbnail:
+              type: string
+              format: uri
+        nat:
+          type: string
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        login:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+        name:
+          type: object
+          properties:
+            first:
+              type: string
+            last:
+              type: string
+        location:
+          type: object
+          properties:
+            city:
+              type: string
+        phone:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+tags:
+  - name: Users
+    description: User management operations
